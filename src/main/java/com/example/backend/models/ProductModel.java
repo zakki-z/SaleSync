@@ -2,13 +2,9 @@ package com.example.backend.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Data
-@Getter
-@Setter
 
 @Table(name = "product")
 public class ProductModel {
@@ -17,6 +13,12 @@ public class ProductModel {
     private Long id;
     private String name;
     private String items;
+    private enum type{
+        raw_material,
+        finished_good
+    };
+    @Enumerated(EnumType.STRING)
+    private type type;
     private String pricePerUnit;
     private String totalPrice;
 

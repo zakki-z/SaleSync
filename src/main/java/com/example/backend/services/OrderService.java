@@ -27,7 +27,7 @@ public class OrderService {
         OrderRepository.save(Order);
         return OrderRepository.findAll().toString();
     }
-    private OrderModel saveOrder(OrderModel Order) {
+    public OrderModel saveOrder(OrderModel Order) {
         OrderModel savedOrder = OrderRepository.save(Order);
         savedOrder.setCreatedAt(LocalDateTime.now());
         double totalAmount = savedOrder.getPricePerUnit() * savedOrder.getQuantity();

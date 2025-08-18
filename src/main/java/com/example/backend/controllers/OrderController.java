@@ -15,6 +15,10 @@ public class OrderController {
     public String getAllOrders() {
         return orderService.getAllOrders().toString();
     }
+    @GetMapping("saveOrder")
+    public String saveOrder(OrderModel Order) {
+        return orderService.saveOrder(Order).toString();
+    }
     @PostMapping("addNewOrder")
     public String addNewOrder(OrderModel Order) {
         return orderService.addNewOrder(Order);

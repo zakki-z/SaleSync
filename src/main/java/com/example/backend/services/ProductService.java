@@ -31,10 +31,10 @@ public class ProductService {
         ProductModel existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found for ID: " + id));
         existingProduct.setName(updatedProduct.getName());
+        existingProduct.setType(updatedProduct.getType());
         existingProduct.setItems(updatedProduct.getItems());
         existingProduct.setPricePerUnit(updatedProduct.getPricePerUnit());
         existingProduct.setTotalPrice(updatedProduct.getTotalPrice());
-
         return productRepository.save(existingProduct);
     }
     public void deleteProduct(Long id) {
