@@ -17,14 +17,17 @@ public class ProductController {
     public ProductService productService;
     @GetMapping("getAllProducts")
     public List<ProductModel> getAllProducts() {
+
         return productService.getAllProducts();
     }
     @PostMapping("addNewProduct")
     public String addNewProduct(ProductModel product) {
+
         return productService.addNewProduct(product);
     }
     @GetMapping("getProductById/{id}")
     public ProductModel getProductById(@PathVariable Long id) {
+
         return productService.getProductById(id);
     }
     @PutMapping("updateProduct/{id}")
@@ -33,6 +36,7 @@ public class ProductController {
     }
     @PostMapping("deleteProduct/{id}")
     public void deleteProduct(ProductModel product){
+
         productService.deleteProduct(product.getId());
     }
 }

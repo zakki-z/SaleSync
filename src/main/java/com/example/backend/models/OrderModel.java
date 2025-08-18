@@ -9,28 +9,30 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Getter
-@Setter
 
 @Table(name = "orders")
 public class OrderModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String pricePerUnit;
-    private LocalDateTime date;
-    private LocalDateTime time;
-    private enum status{
+
+    private enum Status{
         PENDING,
         COMPLETED,
         CANCELLED
     };
-    private String totalAmount;
-    private String totalPrice;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private double quantity;
+    private double pricePerUnit;
+    private LocalDateTime createdAt;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    private double totalAmount;
+    private double totalPrice;
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    private String userId;
+    private UserModel user;
+    @ManyToOne
     @JoinColumn(name = "product_id")
-    private String productId;
-    @JoinColumn(name = "product_name")
-    private String productName;
+    private ProductModel product;
+
 }
