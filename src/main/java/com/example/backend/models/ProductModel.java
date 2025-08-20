@@ -13,13 +13,13 @@ public class ProductModel {
     private Long id;
     private String name;
     private String items;
-    private enum type{
-        raw_material,
-        finished_good
-    };
     @Enumerated(EnumType.STRING)
-    private type type;
+    private ProductType type;
     private String pricePerUnit;
     private String totalPrice;
 
 }
+     enum ProductType{
+        raw_material,
+        finished_good
+    };

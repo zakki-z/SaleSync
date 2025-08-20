@@ -21,14 +21,32 @@ Content-Type: application/json
 POST {{backend_HostAddress}}/api/products/deleteProduct/3
 
 ###
-POST http://localhost:8080/api/inventory/addNewInventory
+POST {{backend_HostAddress}}/api/products/addNewProduct
 Content-Type: application/json
 
 {
   "id": 1,
   "name": "almond",
   "items": "test",
+  "type": "raw_material",
   "pricePerUnit": "30",
-  "totalPrice": "60",
-  "type": "raw_material"
+  "totalPrice": "60"
 }
+###
+POST http://localhost:8080/api/inventory/addNewInventory
+Content-Type: application/json
+
+{
+  "quantity": 10,
+  "pricePerUnit": 20,
+  "totalPrice": 300.0,
+  "totalAmount": 300.0,
+  "product": {
+    "id": 1
+  },
+  "user": {
+    "id": 1
+  }
+}
+###
+DELETE {{backend_HostAddress}}/api/inventory/deleteInventory/2

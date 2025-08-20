@@ -13,11 +13,6 @@ import java.time.LocalDateTime;
 @Table(name = "orders")
 public class OrderModel {
 
-    private enum Status{
-        PENDING,
-        COMPLETED,
-        CANCELLED
-    };
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,8 +26,13 @@ public class OrderModel {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserModel user;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private ProductModel product;
 
 }
+enum Status{
+    PENDING,
+    COMPLETED,
+    CANCELLED
+};

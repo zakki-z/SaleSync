@@ -35,7 +35,6 @@ public class InventoryService {
         existingInventory.setTotalPrice(updatedInventory.getTotalPrice());
         existingInventory.setProduct(updatedInventory.getProduct());
         existingInventory.setUser(updatedInventory.getUser());
-        existingInventory.setType(updatedInventory.getType());
         return inventoryRepository.save(updatedInventory);
     }
     public void deleteInventory() {
