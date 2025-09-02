@@ -1,7 +1,7 @@
-package com.example.backend.services;
+package com.example.backend.services.users;
 
 import com.example.backend.exceptions.UserNotFoundException;
-import com.example.backend.models.UserModel;
+import com.example.backend.models.users.UserModel;
 import com.example.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,8 @@ public class UserService {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found for ID: " + id));
     }
-    public String addNewUser(UserModel user) {
-        userRepository.save(user);
-        return userRepository.findAll().toString();
+    public UserModel addNewUser(UserModel user) {
+        return userRepository.save(user);
     }
     public UserModel updateUser(Long id, UserModel updatedUser) {
         UserModel existingUser = userRepository.findById(id)

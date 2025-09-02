@@ -39,5 +39,6 @@ public class InventoryService {
     }
     public void deleteInventory() {
          inventoryRepository.findAll();
+         inventoryRepository.deleteAll();
     }
 }

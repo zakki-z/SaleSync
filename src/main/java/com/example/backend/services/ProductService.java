@@ -22,9 +22,8 @@ public class ProductService {
     public List<ProductModel> getAllProducts() {
         return productRepository.findAll();
     }
-    public String addNewProduct(ProductModel product) {
-    productRepository.save(product);
-        return productRepository.findAll().toString();
+    public ProductModel addNewProduct(ProductModel product) {
+        return productRepository.save(product);
     }
     @Transactional
     public ProductModel updateProduct(Long id, ProductModel updatedProduct) {
@@ -37,7 +36,11 @@ public class ProductService {
         existingProduct.setTotalPrice(updatedProduct.getTotalPrice());
         return productRepository.save(existingProduct);
     }
+    @Transactional
     public void deleteProduct(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new ProductNotFoundException("Product not found for ID: " + id);
+        }
         productRepository.deleteById(id);
     }
 }

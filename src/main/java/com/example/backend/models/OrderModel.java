@@ -1,9 +1,11 @@
 package com.example.backend.models;
 
+import com.example.backend.models.enums.Status;
+import com.example.backend.models.users.UserModel;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -16,12 +18,15 @@ public class OrderModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Min(0)
     private double quantity;
+    @Min(0)
     private double pricePerUnit;
+    @NotNull
     private LocalDateTime createdAt;
     @Enumerated(EnumType.STRING)
     private Status status;
-    private double totalAmount;
+    @Min(0)
     private double totalPrice;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -31,8 +36,4 @@ public class OrderModel {
     private ProductModel product;
 
 }
-enum Status{
-    PENDING,
-    COMPLETED,
-    CANCELLED
-};
+;

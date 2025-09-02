@@ -1,7 +1,7 @@
-package com.example.backend.controllers;
+package com.example.backend.controllers.users;
 
-import com.example.backend.models.UserModel;
-import com.example.backend.services.UserService;
+import com.example.backend.models.users.UserModel;
+import com.example.backend.services.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ public class UserController {
         return userService.getUserById(id);
     }
     @PostMapping("addNewUser")
-    public String addNewUser(UserModel user) {
+    public UserModel addNewUser(UserModel user) {
         return userService.addNewUser(user);
     }
     @PutMapping("updateUser/{id}")

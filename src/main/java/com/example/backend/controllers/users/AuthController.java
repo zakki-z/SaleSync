@@ -1,6 +1,7 @@
-package com.example.backend.controllers;
+package com.example.backend.controllers.users;
 
-import com.example.backend.services.AuthService;
+import com.example.backend.models.users.UserModel;
+import com.example.backend.services.users.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +18,8 @@ public class AuthController {
         return authService.login(username, password);
     }
     @RequestMapping("/register")
-    public String register(String username, String password) {
-        return authService.register(username, password);
+    public UserModel register(String username, String password, String role) {
+        return authService.register(username, password, role);
     }
     @RequestMapping("/logout")
     public String logout() {

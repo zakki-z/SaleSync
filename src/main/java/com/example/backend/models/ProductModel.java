@@ -1,6 +1,8 @@
 package com.example.backend.models;
 
+import com.example.backend.models.enums.ProductType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
@@ -11,15 +13,12 @@ public class ProductModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String name;
-    private String items;
     @Enumerated(EnumType.STRING)
     private ProductType type;
-    private String pricePerUnit;
-    private String totalPrice;
+    @NotBlank
+    private String category;
 
 }
-     enum ProductType{
-        raw_material,
-        finished_good
-    };
+;

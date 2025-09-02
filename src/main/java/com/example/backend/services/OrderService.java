@@ -19,7 +19,6 @@ public class OrderService {
         return OrderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundExpection("Order not found for ID: " + id));
     }
-
     public List<OrderModel> getAllOrders() {
         return OrderRepository.findAll();
     }
@@ -31,7 +30,7 @@ public class OrderService {
         OrderModel savedOrder = OrderRepository.save(Order);
         savedOrder.setCreatedAt(LocalDateTime.now());
         double totalAmount = savedOrder.getPricePerUnit() * savedOrder.getQuantity();
-        savedOrder.setTotalAmount(totalAmount);
+        savedOrder.setTotalPrice(totalAmount);
         return savedOrder;
     }
     @Transactional
@@ -44,7 +43,7 @@ public class OrderService {
         existingOrder.setCreatedAt(updatedOrder.getCreatedAt());
         existingOrder.setProduct(updatedOrder.getProduct());
         existingOrder.setTotalPrice(updatedOrder.getTotalPrice());
-        existingOrder.setTotalAmount(updatedOrder.getTotalAmount());
+        existingOrder.setTotalPrice(updatedOrder.getTotalPrice());
         existingOrder.setUser(updatedOrder.getUser());
         return OrderRepository.save(existingOrder);
     }
