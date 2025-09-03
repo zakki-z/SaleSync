@@ -5,33 +5,35 @@ import com.example.backend.models.OrderModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/orders")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class OrderController {
     @Autowired
     public OrderService orderService;
-    @GetMapping("getAllOrders")
-    public String getAllOrders() {
-        return orderService.getAllOrders().toString();
+    @GetMapping
+    public List<OrderModel> getAllOrders() {
+        return orderService.getAllOrders();
     }
-    @GetMapping("saveOrder")
-    public String saveOrder(OrderModel Order) {
-        return orderService.saveOrder(Order).toString();
+    @PostMapping
+    public String createOrder(Long userId, OrderModel Order) {
+        return orderService.createOrder(userId, Order).toString();
     }
-    @PostMapping("addNewOrder")
-    public String addNewOrder(OrderModel Order) {
-        return orderService.addNewOrder(Order);
-    }
-    @GetMapping("getOrderById/{id}")
+    @GetMapping("/{id}")
     public OrderModel getOrderById(@PathVariable Long id) {
         return orderService.getOrderById(id);
     }
-    @PutMapping("updateOrder/{id}")
+    @GetMapping("/user/{userId}")
+    public List<OrderModel> getAllOrdersByUser(@PathVariable Long userId) {
+        return orderService.getAllOrdersByUser(userId);
+    }
+    @PutMapping("/{id}")
     public OrderModel updateOrder(@PathVariable Long id, OrderModel updatedOrder) {
         return orderService.updateOrder(id, updatedOrder);
     }
-    @DeleteMapping("deleteOrder/{id}")
+    @DeleteMapping("/{id}")
     public void deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
     }

@@ -23,10 +23,10 @@ public class InventoryController {
     public String addNewInventory(@RequestBody InventoryModel inventory) {
         return inventoryService.addNewInventory(inventory);
     }
-    @PutMapping("/updateInventory/{id}")
-    public String updateInventory(Long id) {
-        return inventoryService.updateInventory(id, null).toString();
-    }
+//    @PutMapping("/updateInventory/{id}")
+//    public String updateInventory(Long id) {
+//        return inventoryService.updateInventory(id, null).toString();
+//    }
     @DeleteMapping("/deleteInventory")
     public void deleteInventory() {
         inventoryService.deleteInventory();

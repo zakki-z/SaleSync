@@ -16,9 +16,14 @@ Content-Type: application/json
   "pricePerUnit": "30",
   "totalPrice": "60"
 }
+###
+GET {{backend_HostAddress}}//api/orders
 
 ###
 POST {{backend_HostAddress}}/api/products/deleteProduct/3
+
+###
+POST {{backend_HostAddress}}//api/orders/getAllOrders
 
 ###
 POST {{backend_HostAddress}}/api/products/addNewProduct

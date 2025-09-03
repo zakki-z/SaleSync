@@ -1,60 +1,56 @@
 package com.example.backend.config;
 
+import com.example.backend.services.users.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
 
-    // User Creation
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
+
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-
-        // InMemoryUserDetailsManager setup with two users
-        UserDetails admin = User.withUsername("Amiya")
-                .password(encoder.encode("123"))  // <-- Encode the password
-                .roles("ADMIN", "USER")
-                .build();
-
-        UserDetails user = User.withUsername("Ejaz")
-                .password(encoder.encode("123"))  // <-- Encode the password
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, user);
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
-    // Configuring HttpSecurity
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Disable CSRF for simplicity
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/welcome").permitAll() // Permit all access to /auth/welcome
-                        .requestMatchers("/auth/user/**").authenticated() // Require authentication for /auth/user/**
-                        .requestMatchers("/auth/admin/**").authenticated() // Require authentication for /auth/admin/**
+                .authorizeHttpRequests(authz -> authz
+                        .anyRequest().authenticated()
                 )
-                .formLogin(withDefaults()); // <-- Use withDefaults() for form-based login
+                .csrf(csrf -> csrf.disable())
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/api/orders", true)
+                        .permitAll()
+                )
+                .httpBasic(basic -> basic.realmName("Backend API"));
 
         return http.build();
     }
 
-    // Password Encoding
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
 }

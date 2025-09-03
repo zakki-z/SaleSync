@@ -17,7 +17,7 @@ public class UserModel{
     @Size(min = 3, max = 50)
     private String username;
     @NotBlank
-    @Size(min = 6, max = 50)
+    @Size(min = 6, max = 60)
     private String password;
     @NotBlank
     private String role;

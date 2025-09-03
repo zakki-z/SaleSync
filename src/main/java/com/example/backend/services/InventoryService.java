@@ -25,18 +25,18 @@ public class InventoryService {
         inventoryRepository.save(inventory);
         return inventoryRepository.findAll().toString();
     }
-    @Transactional
-    public InventoryModel updateInventory(long id,InventoryModel updatedInventory) {
-        InventoryModel existingInventory = inventoryRepository.findById(id)
-                .orElseThrow(() -> new InventoryNotFoundExpection("Inventory not found for ID: " + id));
-        existingInventory.setQuantity(updatedInventory.getQuantity());
-        existingInventory.setPricePerUnit(updatedInventory.getPricePerUnit());
-        existingInventory.setTotalAmount(updatedInventory.getTotalAmount());
-        existingInventory.setTotalPrice(updatedInventory.getTotalPrice());
-        existingInventory.setProduct(updatedInventory.getProduct());
-        existingInventory.setUser(updatedInventory.getUser());
-        return inventoryRepository.save(updatedInventory);
-    }
+//    @Transactional
+//    public InventoryModel updateInventory(long id,InventoryModel updatedInventory) {
+//        InventoryModel existingInventory = inventoryRepository.findById(id)
+//                .orElseThrow(() -> new InventoryNotFoundExpection("Inventory not found for ID: " + id));
+//        existingInventory.setQuantity(updatedInventory.getQuantity());
+//        existingInventory.setPricePerUnit(updatedInventory.getPricePerUnit());
+//        existingInventory.setTotalAmount(updatedInventory.getTotalAmount());
+//        existingInventory.setTotalPrice(updatedInventory.getTotalPrice());
+//        existingInventory.setProduct(updatedInventory.getProduct());
+//        existingInventory.setUser(updatedInventory.getUser());
+//        return inventoryRepository.save(updatedInventory);
+//    }
     public void deleteInventory() {
          inventoryRepository.findAll();
          inventoryRepository.deleteAll();

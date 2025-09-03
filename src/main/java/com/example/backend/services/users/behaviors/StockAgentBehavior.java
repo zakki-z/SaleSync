@@ -1,12 +1,12 @@
-package com.example.backend.models.users.behaviors;
+package com.example.backend.services.users.behaviors;
 
 import com.example.backend.models.users.UserModel;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CashierBehavior extends UserModel {
+public class StockAgentBehavior extends UserBehavior {
     @Override
     public String getRole() {
-        return "CASHIER";
+        return "STOCK_AGENT";
     }
 }

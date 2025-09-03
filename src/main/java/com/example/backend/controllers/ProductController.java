@@ -30,10 +30,10 @@ public class ProductController {
 
         return productService.getProductById(id);
     }
-    @PutMapping("/updateProduct/{id}")
-    public ProductModel updateProduct(@PathVariable Long id, @RequestBody ProductModel product) {
-        return productService.updateProduct(id, product);
-    }
+//    @PutMapping("/updateProduct/{id}")
+//    public ProductModel updateProduct(@PathVariable Long id, @RequestBody ProductModel product) {
+//        return productService.updateProduct(id, product);
+//    }
     @DeleteMapping("/deleteProduct/{id}")
     public void deleteProduct(ProductModel product){
 
