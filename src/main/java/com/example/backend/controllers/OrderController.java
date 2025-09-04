@@ -17,6 +17,14 @@ public class OrderController {
     public List<OrderModel> getAllOrders() {
         return orderService.getAllOrders();
     }
+    @GetMapping("/waiters")
+    public List<OrderModel> getAllWaitersOrders() {
+        return orderService.getAllWaitersOrdersOrders();
+    }
+    @GetMapping("/user/{userId}")
+    public List<OrderModel> getAllOrdersByUser(@PathVariable Long userId) {
+        return orderService.getAllOrdersByUser(userId);
+    }
     @PostMapping
     public String createOrder(Long userId, OrderModel Order) {
         return orderService.createOrder(userId, Order).toString();
@@ -24,10 +32,6 @@ public class OrderController {
     @GetMapping("/{id}")
     public OrderModel getOrderById(@PathVariable Long id) {
         return orderService.getOrderById(id);
-    }
-    @GetMapping("/user/{userId}")
-    public List<OrderModel> getAllOrdersByUser(@PathVariable Long userId) {
-        return orderService.getAllOrdersByUser(userId);
     }
     @PutMapping("/{id}")
     public OrderModel updateOrder(@PathVariable Long id, OrderModel updatedOrder) {

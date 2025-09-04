@@ -3,8 +3,8 @@ package com.example.backend.repository;
 import com.example.backend.models.users.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<UserModel, Long> {
-    UserModel findByUsername(String username);
+import java.util.Optional;
 
-    Long id(Long id);
+public interface UserRepository extends JpaRepository<UserModel, Long> {
+    Optional<UserModel> findByUsername(String username);
 }

@@ -29,11 +29,15 @@ public class OrderService {
     public List<OrderModel> getAllOrders() {
         return orderRepository.findAll();
     }
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CASHIER')")
+    public List<OrderModel> getAllWaitersOrdersOrders() {
+        return orderRepository.findByUserRole("ROLE_WAITER");
+    }
     @PreAuthorize("hasAnyRole('ROLE_WAITER','ROLE_CASHEIR','ROLE_ADMIN')")
     public List<OrderModel> getAllOrdersByUser(Long userId) {
         return orderRepository.findByUserId(userId);
     }
-    @PreAuthorize("hasRole('ROLE_WAITER')")
+    @PreAuthorize("hasAnyRole('ROLE_WAITER','ROLE_CASHIER','ROLE_ADMIN')")
     public OrderModel createOrder(Long userId, OrderModel order) {
         UserModel user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + userId));

@@ -5,6 +5,7 @@ import com.example.backend.exceptions.ProductNotFoundException;
 import com.example.backend.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,15 +15,17 @@ public class ProductService {
     @Autowired
     private  ProductRepository productRepository;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ProductModel getProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found for ID: " + id));
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<ProductModel> getAllProducts() {
         return productRepository.findAll();
     }
-    public ProductModel addNewProduct(ProductModel product) {
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ProductModel createProduct(ProductModel product) {
         return productRepository.save(product);
     }
 //    @Transactional
@@ -36,6 +39,7 @@ public class ProductService {
 //        existingProduct.setTotalPrice(updatedProduct.getTotalPrice());
 //        return productRepository.save(existingProduct);
 //    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
     public void deleteProduct(Long id) {
         if (!productRepository.existsById(id)) {

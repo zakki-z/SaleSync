@@ -16,7 +16,7 @@ public class AuthService {
     private UserService userService;
 
     public UserModel register(String username, String password, String role) {
-        if(userRepository.findByUsername(username) != null) {
+        if(userRepository.findByUsername(username).isPresent()) {
             throw new UserExistsException("User already exists");
         }
         UserModel user = new UserModel();
@@ -25,16 +25,13 @@ public class AuthService {
         return userRepository.save(user);
     }
     public String login(String username, String password) {
-        UserModel existingUser = userRepository.findByUsername(username);
-        if (existingUser.getUsername() == null) {
-            throw new UserNotFoundException("User not found");
-        }
-        else if (!existingUser.getUsername().matches(username) || !existingUser.getPassword().matches(password)) {
+        UserModel existingUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        if (!existingUser.getUsername().equals(username) || !existingUser.getPassword().equals(password)) {
             throw new InvalidUserCredentials("Invalid Username or Password");
         }
-        else {
-            return "Login Successful";
-        }
+
+        return "Login Successful";
     }
     public String logout() {
         return "Logout Successful";
