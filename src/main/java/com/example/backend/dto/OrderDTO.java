@@ -1,4 +1,15 @@
 package com.example.backend.dto;
 
-public record OrderDTO(String username, String productName, int quantity, double price, String status) {
-}
+import com.example.backend.models.enums.Status;
+import java.time.LocalDateTime;
+
+public record OrderDTO(
+        Long id,
+        String username,
+        String productName,
+        double quantity,
+        double pricePerUnit,
+        double totalPrice,
+        LocalDateTime createdAt,
+        Status status
+) {}

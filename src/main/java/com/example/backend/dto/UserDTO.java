@@ -1,6 +1,5 @@
 package com.example.backend.dto;
 
-import java.util.List;
 
-public record UserDTO(String username, List<String> role) {
+public record UserDTO(Long id, String username, String role) {
 }
